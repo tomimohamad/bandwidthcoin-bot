@@ -36,6 +36,24 @@ client.once('ready', () => {
   }
 });
 
+client.on('interactionCreate', async interaction => {
+  if (!interaction.isButton()) return; // Hanya tangani tombol
+
+  if (interaction.customId === 'claim_button') { // Sesuaikan dengan customId tombol Anda
+    const userId = interaction.user.id;
+    const userTag = interaction.user.tag;
+
+    // Simulasi klaim poin
+    if (!userPoints[userId]) userPoints[userId] = 0;
+    userPoints[userId] += 10;
+
+    await interaction.reply({
+      content: `🎉 ${userTag}, kamu berhasil klaim 10 poin!`,
+      ephemeral: true // Hanya user yang lihat
+    });
+  }
+});
+
   // Kirim panel utama ke #general
   const generalChannel = client.channels.cache.find(
     (c) => c.name === "general",
