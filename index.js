@@ -19,8 +19,22 @@ const client = new Client({
 // Simulasi database
 let userPoints = {};
 
-client.once("ready", () => {
+client.once('ready', () => {
   console.log(`🚀 Bot aktif! - ${client.user.tag}`);
+
+  // Ganti dengan Server ID Anda
+  const guildId = '1455050454244266017'; // ← PASTE DI SINI!
+  const guild = client.guilds.cache.get(guildId);
+  
+  if (guild) {
+    // Daftarkan command dasar
+    guild.commands.set([{ 
+      name: 'claim', 
+      description: 'Klaim poin bandwidth' 
+    }]);
+    console.log('✅ Slash command terdaftar');
+  }
+});
 
   // Kirim panel utama ke #general
   const generalChannel = client.channels.cache.find(
