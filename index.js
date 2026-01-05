@@ -1,8 +1,8 @@
-// index.js — Versi PASTI JALAN untuk Vercel + Discord
+// index.js — Versi Minimal & Valid untuk Vercel + Discord
 export default async (req, res) => {
   // Hanya terima POST
   if (req.method !== 'POST') {
-    return res.status(405).end();
+    return res.status(405).json({ error: 'Method Not Allowed' });
   }
 
   let body;
