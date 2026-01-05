@@ -4,7 +4,6 @@ import { InteractionType, InteractionResponseType } from 'discord-interactions';
 
 const app = new App();
 
-// Endpoint utama Vercel — menerima POST dari Discord
 app.post('/', async (req, res) => {
   const { type, id, token } = req.body;
 
