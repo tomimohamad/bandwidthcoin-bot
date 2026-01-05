@@ -1,19 +1,19 @@
-// index.js — Versi Minimal & Valid untuk Vercel + Discord
-import { App } from '@vercel/node';
-
-const app = new App();
-
-app.post('/', (req, res) => {
-  // Baca body sebagai JSON
-  const body = req.body;
-
-  // Jika Discord kirim PING (type: 1), balas dengan { type: 1 }
-  if (body && body.type === 1) {
-    return res.json({ type: 1 });
+// index.js — Versi PASTI JALAN di Vercel
+export default async (req, res) => {
+  if (req.method !== 'POST') {
+    return res.status(405).end();
   }
 
-  // Untuk interaksi lain (command/tombol), kirim error sementara
-  return res.status(400).json({ error: 'Unsupported interaction' });
-});
+  let body;
+  try {
+    body = JSON.parse(req.body || '{}');
+  } catch (e) {
+    return res.status(400).json({ error: 'Invalid JSON' });
+  }
 
-export default app;
+  if (body.type === 1) {
+    return res.json({ type: 1 }); // WAJIB untuk verifikasi
+  }
+
+  return res.status(400).json({ error: 'Unsupported' });
+};
